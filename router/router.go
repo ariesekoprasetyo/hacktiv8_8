@@ -9,7 +9,7 @@ func InitializeRouter() (router *gin.Engine) {
 	router = gin.Default()
 	routerGroup := router.Group("/api/v1")
 	{
-		routerGroup.PUT("/status", controllers.StatusUpdate)
+		routerGroup.PUT("/status", controllers.UpdateStatus)
 	}
 	return
 }

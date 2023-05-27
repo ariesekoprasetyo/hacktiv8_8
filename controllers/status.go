@@ -15,13 +15,13 @@ type ApiResponse struct {
 	Data          interface{} `json:"data"`
 }
 
-func StatusUpdate(c *gin.Context) {
+func UpdateStatus(c *gin.Context) {
 	var statusRequest status.StatusReq
 	if err := c.ShouldBindJSON(&statusRequest); err != nil {
 		response := ApiResponse{
 			Code:          http.StatusBadRequest,
 			Status:        "Gagal Bind Json",
-			Message:       "Gagal Update Order",
+			Message:       "Gagal Update Status Water & Wind",
 			MessageDetail: err.Error(),
 			Data:          nil,
 		}
@@ -33,7 +33,7 @@ func StatusUpdate(c *gin.Context) {
 		response := ApiResponse{
 			Code:          http.StatusBadRequest,
 			Status:        "Gagal",
-			Message:       "Gagal Menambahkan Order",
+			Message:       "Gagal Update Status Water & Wind",
 			MessageDetail: err.Error(),
 			Data:          nil,
 		}
@@ -43,7 +43,7 @@ func StatusUpdate(c *gin.Context) {
 	c.JSON(http.StatusOK, ApiResponse{
 		Code:          http.StatusOK,
 		Status:        "Berhasil",
-		Message:       "Berhasil Update Order",
+		Message:       "Berhasil Update Status Water & Wind",
 		MessageDetail: "",
 		Data:          statusRequest,
 	})
