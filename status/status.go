@@ -9,9 +9,6 @@ type StatusReq struct {
 
 func StatusUpdate(status StatusReq) error {
 	var statusValue db.WindWaterStatus
-	if err := db.DB.Debug().First(&statusValue).Error; err != nil {
-		return err
-	}
 	statusValue = db.WindWaterStatus{
 		Wind:  status.Wind,
 		Water: status.Water,

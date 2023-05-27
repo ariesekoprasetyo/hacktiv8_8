@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"Assigment_8/status"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -47,5 +46,4 @@ func UpdateStatus(c *gin.Context) {
 		MessageDetail: "",
 		Data:          statusRequest,
 	})
-	fmt.Println(statusRequest)
 }
