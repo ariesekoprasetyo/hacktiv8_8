@@ -1,6 +1,11 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"Assigment_8/status"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
 
 type ApiResponse struct {
 	Code          int         `json:"code"`
@@ -11,5 +16,36 @@ type ApiResponse struct {
 }
 
 func StatusUpdate(c *gin.Context) {
-
+	var statusRequest status.StatusReq
+	if err := c.ShouldBindJSON(&statusRequest); err != nil {
+		response := ApiResponse{
+			Code:          http.StatusBadRequest,
+			Status:        "Gagal Bind Json",
+			Message:       "Gagal Update Order",
+			MessageDetail: err.Error(),
+			Data:          nil,
+		}
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	err := status.StatusUpdate(statusRequest)
+	if err != nil {
+		response := ApiResponse{
+			Code:          http.StatusBadRequest,
+			Status:        "Gagal",
+			Message:       "Gagal Menambahkan Order",
+			MessageDetail: err.Error(),
+			Data:          nil,
+		}
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	c.JSON(http.StatusOK, ApiResponse{
+		Code:          http.StatusOK,
+		Status:        "Berhasil",
+		Message:       "Berhasil Update Order",
+		MessageDetail: "",
+		Data:          statusRequest,
+	})
+	fmt.Println(statusRequest)
 }

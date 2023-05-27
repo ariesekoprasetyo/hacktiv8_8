@@ -52,7 +52,7 @@ func reloadData() {
 		if err != nil {
 			log.Println("Failed to update data:", err)
 		} else {
-			log.Println("Data updated: water =", water, "wind =", wind, "water status =", waterStatus, "wind status =", windStatus)
+			log.Println("\nData updated : \nwater =", water, "\nwind =", wind, "\nwater status =", waterStatus, "\nwind status =", windStatus)
 		}
 
 		time.Sleep(15 * time.Second)
@@ -60,10 +60,10 @@ func reloadData() {
 }
 
 func updateData(water, wind int) error {
-	url := "https://example.com/api/update"
+	url := "http://localhost:3000/api/v1/status"
 	payload := []byte(fmt.Sprintf(`{"water": %d, "wind": %d}`, water, wind))
 
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
+	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(payload))
 	if err != nil {
 		return err
 	}
