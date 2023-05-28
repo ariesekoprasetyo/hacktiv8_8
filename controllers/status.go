@@ -14,7 +14,16 @@ type ApiResponse struct {
 	Data          interface{} `json:"data"`
 }
 
-func UpdateStatus(c *gin.Context) {
+func InitializeRouter() (router *gin.Engine) {
+	router = gin.Default()
+	routerGroup := router.Group("/api/v1")
+	{
+		routerGroup.PUT("/status", updateStatus)
+	}
+	return
+}
+
+func updateStatus(c *gin.Context) {
 	var statusRequest status.StatusReq
 	if err := c.ShouldBindJSON(&statusRequest); err != nil {
 		response := ApiResponse{
